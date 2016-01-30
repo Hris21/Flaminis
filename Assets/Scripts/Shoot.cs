@@ -5,17 +5,28 @@ public class Shoot : MonoBehaviour {
 
     public Rigidbody2D bulletPrefab;
     public Transform bulletSpawnPoint;
-
+    public float fireDelay = 0.5f;
     public float bulletSpeed;
-	
-	// Update is called once per frame
+    float cooldown;
+
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        cooldown -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.F) && cooldown <= 0)
         {
             Rigidbody2D bulletInstance;
-            bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as Rigidbody2D;
-            bulletInstance.AddForce(bulletSpawnPoint.right * bulletSpeed); // TODO shoot direction sync with facing direction
+            if (GlobalManager.facingRight)
+            {
+                bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as Rigidbody2D;
+                bulletInstance.AddForce(bulletSpawnPoint.right * bulletSpeed);
+
+            }
+            else
+            {
+                bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as Rigidbody2D;
+                bulletInstance.AddForce(-bulletSpawnPoint.right * bulletSpeed);
+            }
+            cooldown = fireDelay;
         }
 	}
 }

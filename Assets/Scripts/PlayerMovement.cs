@@ -1,55 +1,70 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
-    public float moveSpeed = 4f;
-    private float moveHorizontal;
-    private float moveVertical;
+    private bool IS_FACING_RIGHT = true;
+    private bool IS_FACING_LEFT = false;
+    private bool IS_ON_GROUND = true;
+
+    private bool didJump = false;
+    public const float maxFlapSpeed = 0.3f;
+    public const float moveSpeed = 0.2f;
     public float jumpHeight;
     private bool facingRight = true;
+    private float lockPos = 0;
 
-	// Update is called once per frame
-	void Update ()
+    void OnCollisionEnter2D(Collision2D coll)
     {
-        //float h = Input.GetAxis("Horizontal");
+        if (coll.gameObject.tag == "Ground" || coll.gameObject.tag == "Platform")
+        {
+            IS_ON_GROUND = true;
+        }
+    }
 
-        //transform.Translate(new Vector3(h * moveSpeed * Time.deltaTime, 0f, 0f));
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        var rb = GetComponent<Rigidbody2D>();
+        var ground = GameObject.FindGameObjectWithTag("Ground").transform.position;
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lockPos, lockPos);
 
         if (Input.GetKey(KeyCode.A))
         {
-            moveHorizontal = -1;
-            if (facingRight)
+            IS_FACING_RIGHT = false;
+            if (!IS_FACING_RIGHT)
             {
                 Flip();
+                transform.Translate(new Vector2(-moveSpeed, 0f));
             }
         }
         if (Input.GetKey(KeyCode.D))
         {
-            moveHorizontal = 1;
-            if (!facingRight)
+            IS_FACING_LEFT = false;
+            if (!IS_FACING_LEFT)
             {
                 Flip();
+                transform.Translate(new Vector2(moveSpeed, 0f));
             }
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && IS_ON_GROUND == true)
         {
-            moveVertical = 1;
-        }
 
-        transform.Translate(new Vector3(moveHorizontal * moveSpeed * Time.deltaTime, 0f, 0f));
-        transform.Translate(new Vector3(0f, moveVertical * jumpHeight * Time.deltaTime, 0f));
-        transform.Rotate(new Vector3(0f, 0f, 0f));
-        moveVertical = 0;
-        moveHorizontal = 0;
+            IS_ON_GROUND = false;
+            rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+            if (rb.transform.position == ground)
+            {
+                IS_ON_GROUND = true;
+            }
+        }
     }
 
     void Flip()
     {
-        facingRight = !facingRight;
-
-        Vector3 theScale = transform.localScale;
+        IS_FACING_RIGHT = !IS_FACING_RIGHT;
+        Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
     }
