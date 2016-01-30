@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B037AF05-13EC-55E4-BCD4-FEEFC69E2155}</ProjectGuid>
+    <ProjectGuid>{B784D7B5-B2EB-F73D-8FF0-13340F4B99CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,9 +45,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\PlayerCollision.cs" />
+     <Compile Include="Assets\Scripts\BulletPlatformCollision.cs" />
+     <Compile Include="Assets\Scripts\DestroyByBoundry.cs" />
+     <Compile Include="Assets\Scripts\DestroyTime.cs" />
+     <Compile Include="Assets\Scripts\GlobalManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerIceMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Shoot.cs" />
+     <Compile Include="Assets\Scripts\ShootBlue.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
