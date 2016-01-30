@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{44BE3821-9D1D-EBA7-AE7C-51CA94FAFB60}") = "SpriteTestSheet", "Assembly-CSharp.csproj", "{B037AF05-13EC-55E4-BCD4-FEEFC69E2155}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B037AF05-13EC-55E4-BCD4-FEEFC69E2155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B037AF05-13EC-55E4-BCD4-FEEFC69E2155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B037AF05-13EC-55E4-BCD4-FEEFC69E2155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B037AF05-13EC-55E4-BCD4-FEEFC69E2155}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
