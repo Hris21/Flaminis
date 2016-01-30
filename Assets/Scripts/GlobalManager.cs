@@ -3,6 +3,6 @@ using System.Collections;
 
 public static class GlobalManager {
 
-    public static bool facingRight = true;
-    public static bool facingRightIce = true;
+    public static bool IS_FACING_RIGHT;
+    public static bool IS_FACING_RIGHT_ICE;
 }

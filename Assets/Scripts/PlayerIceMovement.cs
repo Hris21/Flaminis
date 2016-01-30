@@ -3,16 +3,16 @@ using System.Collections;
 
 public class PlayerIceMovement : MonoBehaviour
 {
-    private bool IS_FACING_RIGHT = true;
-    private bool IS_FACING_LEFT = false;
     private bool IS_ON_GROUND = true;
+    
+    private sbyte AXIS_X_LEFT = -1;
+    private sbyte AXIS_X_RIGHT = 1;
+    private sbyte MOVING_AXIS_X;
 
-    private bool didJump = false;
-    public const float maxFlapSpeed = 0.3f;
-    public const float moveSpeed = 0.2f;
-    public float jumpHeight;
-    private bool facingRight = true;
+    private float jumpHeight;
     private float lockPos = 0;
+    private const float maxFlapSpeed = 0.3f;
+    private const float moveSpeed = 0.2f;
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -22,7 +22,10 @@ public class PlayerIceMovement : MonoBehaviour
         }
     }
 
-
+    void Start()
+    {
+        Flip();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -34,21 +37,25 @@ public class PlayerIceMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            IS_FACING_RIGHT = false;
-            if (!IS_FACING_RIGHT)
+            if (MOVING_AXIS_X == AXIS_X_RIGHT)
             {
-                
-                transform.Translate(new Vector2(-moveSpeed, 0f));
+                Flip();
             }
+            MOVING_AXIS_X = AXIS_X_LEFT;
+
+            transform.Translate(new Vector2(-moveSpeed, 0f));
         }
+
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            IS_FACING_LEFT = false;
-            if (!IS_FACING_LEFT)
+            if (MOVING_AXIS_X == AXIS_X_LEFT)
             {
-                
-                transform.Translate(new Vector2(moveSpeed, 0f));
+                Flip();
             }
+            MOVING_AXIS_X = AXIS_X_RIGHT;
+
+            transform.Translate(new Vector2(moveSpeed, 0f));
         }
 
         if (Input.GetKey(KeyCode.UpArrow) && IS_ON_GROUND == true)
@@ -65,7 +72,7 @@ public class PlayerIceMovement : MonoBehaviour
 
     void Flip()
     {
-        IS_FACING_RIGHT = !IS_FACING_RIGHT;
+        GlobalManager.IS_FACING_RIGHT_ICE = !GlobalManager.IS_FACING_RIGHT_ICE;
         Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
