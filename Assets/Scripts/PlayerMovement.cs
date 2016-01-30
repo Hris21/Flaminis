@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     {
         var otherPlayer = GameObject.Find("PlayerIce");
 
-        if (this.transform.position.x > Camera.main.transform.position.x && this.transform.position.x > otherPlayer.transform.position.x)
+        if (this.transform.position.x > Camera.main.transform.position.x && this.transform.position.x < otherPlayer.transform.position.x)
         {
             Camera.main.transform.position = new Vector3(this.transform.position.x, Camera.main.transform.position.y, -10);
         }
