@@ -24,8 +24,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        this.MoveCamera();
+
         var rb = GetComponent<Rigidbody2D>();
         var ground = GameObject.FindGameObjectWithTag("Ground").transform.position;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lockPos, lockPos);
@@ -67,5 +69,16 @@ public class PlayerMovement : MonoBehaviour
         Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    void MoveCamera()
+    {
+        var otherPlayer = GameObject.Find("PlayerIce");
+
+        if (this.transform.position.x > Camera.main.transform.position.x && this.transform.position.x > otherPlayer.transform.position.x)
+        {
+            Camera.main.transform.position = new Vector3(this.transform.position.x, Camera.main.transform.position.y, -10);
+        }
+
     }
 }
