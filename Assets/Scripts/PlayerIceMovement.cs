@@ -43,7 +43,7 @@ public class PlayerIceMovement : MonoBehaviour
             }
             MOVING_AXIS_X = AXIS_X_LEFT;
 
-            transform.Translate(new Vector2(-moveSpeed, 0f));
+            rb.velocity = new Vector2(-7, rb.velocity.y);
         }
 
 
@@ -55,7 +55,7 @@ public class PlayerIceMovement : MonoBehaviour
             }
             MOVING_AXIS_X = AXIS_X_RIGHT;
 
-            transform.Translate(new Vector2(moveSpeed, 0f));
+            rb.velocity = new Vector2(7, rb.velocity.y);
         }
 
         if (Input.GetKey(KeyCode.UpArrow) && IS_ON_GROUND == true)

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool didJump = false;
     public const float maxFlapSpeed = 0.3f;
-    public const float moveSpeed = 0.2f;
+    public const float moveSpeed = 10f;
     public float jumpHeight;
     private bool facingRight = true;
     private float lockPos = 0;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             if (!IS_FACING_RIGHT)
             {
                 Flip();
-                transform.Translate(new Vector2(-moveSpeed, 0f));
+                rb.velocity = new Vector2(-7, rb.velocity.y);
             }
         }
         if (Input.GetKey(KeyCode.D))
@@ -47,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
             if (!IS_FACING_LEFT)
             {
                 Flip();
-                transform.Translate(new Vector2(moveSpeed, 0f));
+                rb.velocity = new Vector2(7,rb.velocity.y);
+                //rb.AddForce(new Vector2(moveSpeed, 0f), ForceMode2D.Force);
             }
         }
 
