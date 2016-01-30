@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public bool IS_ON_GROUND = true;
-    
-    public sbyte AXIS_X_LEFT = 1;
-    public sbyte AXIS_X_RIGHT = -1;
-    public sbyte MOVING_AXIS_X;
-    
-    public float jumpHeight;
-    public float lockPos = 0;
-    public const float maxFlapSpeed = 0.3f;
-    public const float moveSpeed = 0.2f;
 
-    private void OnCollisionEnter2D(Collision2D coll)
+    private bool IS_FACING_RIGHT = true;
+    private bool IS_FACING_LEFT = false;
+    private bool IS_ON_GROUND = true;
+
+    private bool didJump = false;
+    public const float maxFlapSpeed = 0.3f;
+    public const float moveSpeed = 10f;
+    public float jumpHeight;
+    private bool facingRight = true;
+    private float lockPos = 0;
+
+    void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Ground" || coll.gameObject.tag == "Platform")
         {
@@ -22,36 +24,37 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+    void Update()
     {
+        this.MoveCamera();
+
         var rb = GetComponent<Rigidbody2D>();
         var ground = GameObject.FindGameObjectWithTag("Ground").transform.position;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lockPos, lockPos);
 
         if (Input.GetKey(KeyCode.A))
         {
-            if (MOVING_AXIS_X == AXIS_X_RIGHT)
+            IS_FACING_RIGHT = false;
+            if (!IS_FACING_RIGHT)
             {
                 Flip();
+                rb.velocity = new Vector2(-7, rb.velocity.y);
             }
-            MOVING_AXIS_X = AXIS_X_LEFT;
-
-            transform.Translate(new Vector2(-moveSpeed, 0f));
         }
-
         if (Input.GetKey(KeyCode.D))
         {
-            if (MOVING_AXIS_X == AXIS_X_LEFT)
+            IS_FACING_LEFT = false;
+            if (!IS_FACING_LEFT)
             {
                 Flip();
+                rb.velocity = new Vector2(7,rb.velocity.y);
+                //rb.AddForce(new Vector2(moveSpeed, 0f), ForceMode2D.Force);
             }
-            MOVING_AXIS_X = AXIS_X_RIGHT;
-
-            transform.Translate(new Vector2(moveSpeed, 0f));
         }
 
         if (Input.GetKey(KeyCode.Space) && IS_ON_GROUND == true)
         {
+
             IS_ON_GROUND = false;
             rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             if (rb.transform.position == ground)
@@ -61,11 +64,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Flip()
+    void Flip()
     {
-        GlobalManager.IS_FACING_RIGHT = !GlobalManager.IS_FACING_RIGHT;
+        IS_FACING_RIGHT = !IS_FACING_RIGHT;
         Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    void MoveCamera()
+    {
+        var otherPlayer = GameObject.Find("PlayerIce");
+
+        if (this.transform.position.x > Camera.main.transform.position.x && this.transform.position.x < otherPlayer.transform.position.x)
+        {
+            Camera.main.transform.position = new Vector3(this.transform.position.x, Camera.main.transform.position.y, -10);
+        }
+
     }
 }

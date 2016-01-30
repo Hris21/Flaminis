@@ -27,8 +27,10 @@ public class PlayerIceMovement : MonoBehaviour
         Flip();
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        this.MoveCamera();
+
         var rb = GetComponent<Rigidbody2D>();
         var ground = GameObject.FindGameObjectWithTag("Ground").transform.position;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lockPos, lockPos);
@@ -41,7 +43,7 @@ public class PlayerIceMovement : MonoBehaviour
             }
             MOVING_AXIS_X = AXIS_X_LEFT;
 
-            transform.Translate(new Vector2(-moveSpeed, 0f));
+            rb.velocity = new Vector2(-7, rb.velocity.y);
         }
 
 
@@ -53,7 +55,7 @@ public class PlayerIceMovement : MonoBehaviour
             }
             MOVING_AXIS_X = AXIS_X_RIGHT;
 
-            transform.Translate(new Vector2(moveSpeed, 0f));
+            rb.velocity = new Vector2(7, rb.velocity.y);
         }
 
         if (Input.GetKey(KeyCode.UpArrow) && IS_ON_GROUND == true)
@@ -74,5 +76,14 @@ public class PlayerIceMovement : MonoBehaviour
         Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    void MoveCamera()
+    {
+        var otherPlayer = GameObject.Find("PlayerFlame");
+        if (this.transform.position.x < Camera.main.transform.position.x && this.transform.position.x > otherPlayer.transform.position.x)
+        {
+            Camera.main.transform.position = new Vector3(this.transform.position.x, Camera.main.transform.position.y, -10);
+        }
     }
 }
