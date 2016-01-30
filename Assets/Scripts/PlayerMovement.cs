@@ -1,21 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    private bool IS_FACING_RIGHT = true;
-    private bool IS_FACING_LEFT = false;
     private bool IS_ON_GROUND = true;
-
+    private bool IS_FACING_RIGHT;
     private bool didJump = false;
-    public const float maxFlapSpeed = 0.3f;
-    public const float moveSpeed = 0.2f;
-    public float jumpHeight;
-    private bool facingRight = true;
-    private float lockPos = 0;
+    private sbyte AXIS_X_LEFT = -1;
+    private sbyte AXIS_X_RIGHT = 1;
+    private sbyte MOVING_AXIS_X;
 
-    void OnCollisionEnter2D(Collision2D coll)
+    private float jumpHeight;
+    private float lockPos = 0;
+    private const float maxFlapSpeed = 0.3f;
+    private const float moveSpeed = 0.2f;
+
+    private void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Ground" || coll.gameObject.tag == "Platform")
         {
@@ -24,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         var rb = GetComponent<Rigidbody2D>();
         var ground = GameObject.FindGameObjectWithTag("Ground").transform.position;
@@ -32,26 +31,28 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            IS_FACING_RIGHT = false;
-            if (!IS_FACING_RIGHT)
+            if (MOVING_AXIS_X == AXIS_X_RIGHT)
             {
                 Flip();
-                transform.Translate(new Vector2(-moveSpeed, 0f));
             }
+            MOVING_AXIS_X = AXIS_X_LEFT;
+
+            transform.Translate(new Vector2(-moveSpeed, 0f));
         }
+
         if (Input.GetKey(KeyCode.D))
         {
-            IS_FACING_LEFT = false;
-            if (!IS_FACING_LEFT)
+            if (MOVING_AXIS_X == AXIS_X_LEFT)
             {
                 Flip();
-                transform.Translate(new Vector2(moveSpeed, 0f));
             }
+            MOVING_AXIS_X = AXIS_X_RIGHT;
+
+            transform.Translate(new Vector2(moveSpeed, 0f));
         }
 
         if (Input.GetKey(KeyCode.Space) && IS_ON_GROUND == true)
         {
-
             IS_ON_GROUND = false;
             rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             if (rb.transform.position == ground)
@@ -61,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Flip()
+    private void Flip()
     {
         IS_FACING_RIGHT = !IS_FACING_RIGHT;
         Vector2 theScale = transform.localScale;
