@@ -4,8 +4,7 @@ using System.Collections;
 public class PlayerIceMovement : MonoBehaviour
 {
     private bool IS_ON_GROUND = true;
-    private bool IS_FACING_RIGHT;
-    private bool didJump = false;
+    
     private sbyte AXIS_X_LEFT = -1;
     private sbyte AXIS_X_RIGHT = 1;
     private sbyte MOVING_AXIS_X;
@@ -71,7 +70,7 @@ public class PlayerIceMovement : MonoBehaviour
 
     void Flip()
     {
-        IS_FACING_RIGHT = !IS_FACING_RIGHT;
+        GlobalManager.IS_FACING_RIGHT_ICE = !GlobalManager.IS_FACING_RIGHT_ICE;
         Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;

@@ -2,17 +2,16 @@
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool IS_ON_GROUND = true;
-    private bool IS_FACING_RIGHT;
-    private bool didJump = false;
-    private sbyte AXIS_X_LEFT = -1;
-    private sbyte AXIS_X_RIGHT = 1;
-    private sbyte MOVING_AXIS_X;
-
-    private float jumpHeight;
-    private float lockPos = 0;
-    private const float maxFlapSpeed = 0.3f;
-    private const float moveSpeed = 0.2f;
+    public bool IS_ON_GROUND = true;
+    
+    public sbyte AXIS_X_LEFT = 1;
+    public sbyte AXIS_X_RIGHT = -1;
+    public sbyte MOVING_AXIS_X;
+    
+    public float jumpHeight;
+    public float lockPos = 0;
+    public const float maxFlapSpeed = 0.3f;
+    public const float moveSpeed = 0.2f;
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
@@ -64,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        IS_FACING_RIGHT = !IS_FACING_RIGHT;
+        GlobalManager.IS_FACING_RIGHT = !GlobalManager.IS_FACING_RIGHT;
         Vector2 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
