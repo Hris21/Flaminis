@@ -9,13 +9,9 @@ public class TextUpdatePlayer2 : MonoBehaviour {
 
     private int count;
 
-    public AudioClip hitSound;
-    private AudioSource source;
-
     // Use this for initialization
     void Start()
     {
-        source = GetComponent<AudioSource>();
         count = 0;
         SetCountText();
     }
@@ -24,7 +20,7 @@ public class TextUpdatePlayer2 : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Bullet1"))
         {
-            source.PlayOneShot(hitSound);
+            Debug.Log("Collision");
             count++;
             SetCountText();
         }
@@ -34,7 +30,6 @@ public class TextUpdatePlayer2 : MonoBehaviour {
             UnityEngine.SceneManagement.SceneManager.LoadScene("EndGameRed");
         }
     }
-
 
     void SetCountText()
     {

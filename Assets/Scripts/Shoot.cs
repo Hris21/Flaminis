@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour {
     public Rigidbody2D bulletPrefab;
     public Transform bulletSpawnPoint;
     public float fireDelay = 0.5f;
-    public float bulletSpeed;
+    public float bulletSpeed = 20f;
     float cooldown;
 
     public AudioClip shootSound;
@@ -34,7 +34,7 @@ public class Shoot : MonoBehaviour {
             else
             {
                 bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as Rigidbody2D;
-                bulletInstance.AddForce(bulletSpawnPoint.right * bulletSpeed);
+                bulletInstance.velocity = new Vector2((float)bulletSpawnPoint.right.x * bulletSpeed,this.transform.position.y);
             }
             cooldown = fireDelay;
         }
