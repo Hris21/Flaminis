@@ -77,6 +77,12 @@ public class PlayerIceMovement : MonoBehaviour
     void MoveCamera()
     {
         var otherPlayer = GameObject.Find("PlayerFlame");
+
+        if (otherPlayer == null)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("EndGameBlue");
+        }
+
         if (this.transform.position.x < Camera.main.transform.position.x && this.transform.position.x > otherPlayer.transform.position.x)
         {
             Camera.main.transform.position = new Vector3(this.transform.position.x, Camera.main.transform.position.y, -10);

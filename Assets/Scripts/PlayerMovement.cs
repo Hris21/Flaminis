@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool IS_FACING_RIGHT = true;
-    private bool IS_FACING_LEFT = false;
     private bool IS_ON_GROUND = true;
 
     private sbyte AXIS_X_LEFT = -1;
     private sbyte AXIS_X_RIGHT = 1;
     private sbyte MOVING_AXIS_X;
-
-    private bool didJump = false;
+    
     public const float maxFlapSpeed = 0.3f;
     public const float moveSpeed = 10f;
     public float jumpHeight;
-    private bool facingRight = true;
+
     private float lockPos = 0;
 
-    private void OnCollisionEnter2D(Collision2D coll)
+    private Text winText;
+
+    void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Ground" || coll.gameObject.tag == "Platform")
         {
@@ -26,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         this.MoveCamera();
 
@@ -46,15 +47,12 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(-7, rb.velocity.y);
         }
 
-
         if (Input.GetKey(KeyCode.D))
         {
             
             if (MOVING_AXIS_X == AXIS_X_LEFT)
             {
                 Flip();
-                rb.velocity = new Vector2(7, rb.velocity.y);
-                //rb.AddForce(new Vector2(moveSpeed, 0f), ForceMode2D.Force);
             }
             MOVING_AXIS_X = AXIS_X_RIGHT;
 
@@ -63,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && IS_ON_GROUND == true)
         {
+
             IS_ON_GROUND = false;
             rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             if (rb.transform.position == ground)
@@ -72,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Flip()
+    void Flip()
     {
         GlobalManager.IS_FACING_RIGHT = !GlobalManager.IS_FACING_RIGHT;
         Vector2 theScale = transform.localScale;
@@ -80,9 +79,14 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    private void MoveCamera()
+    void MoveCamera()
     {
         var otherPlayer = GameObject.Find("PlayerIce");
+
+        if (otherPlayer == null)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("EndGameRed");
+        }
 
         if (this.transform.position.x > Camera.main.transform.position.x && this.transform.position.x < otherPlayer.transform.position.x)
         {

@@ -28,6 +28,11 @@ public class TextUpdatePlayer2 : MonoBehaviour {
             count++;
             SetCountText();
         }
+
+        if (count >= 50)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("EndGameRed");
+        }
     }
 
 
