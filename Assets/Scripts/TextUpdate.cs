@@ -9,9 +9,13 @@ public class TextUpdate : MonoBehaviour {
 
     private int count;
 
+    public AudioClip hitSound;
+    private AudioSource source;
+
     // Use this for initialization
     void Start ()
     {
+        source = GetComponent<AudioSource>();
         count = 0;
         SetCountText();
 	}
@@ -20,7 +24,7 @@ public class TextUpdate : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            Debug.Log("Collision");
+            source.PlayOneShot(hitSound);
             count++;
             SetCountText();
         }
