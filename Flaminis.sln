@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{DD21F29B-7A9B-3E34-CD0B-C941B1C50CEF}") = "Flaminis", "Assembly-CSharp.csproj", "{B784D7B5-B2EB-F73D-8FF0-13340F4B99CB}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flaminis.CSharp", "Flaminis.CSharp.csproj", "{580FDB49-894C-20AB-12A5-0CDA4EE5F9DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B784D7B5-B2EB-F73D-8FF0-13340F4B99CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B784D7B5-B2EB-F73D-8FF0-13340F4B99CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B784D7B5-B2EB-F73D-8FF0-13340F4B99CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B784D7B5-B2EB-F73D-8FF0-13340F4B99CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{580FDB49-894C-20AB-12A5-0CDA4EE5F9DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{580FDB49-894C-20AB-12A5-0CDA4EE5F9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{580FDB49-894C-20AB-12A5-0CDA4EE5F9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{580FDB49-894C-20AB-12A5-0CDA4EE5F9DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
