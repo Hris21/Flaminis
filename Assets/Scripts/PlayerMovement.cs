@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private bool IS_FACING_RIGHT = true;
+    private bool IS_FACING_LEFT = false;
     private bool IS_ON_GROUND = true;
 
     private sbyte AXIS_X_LEFT = -1;
@@ -16,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private float lockPos = 0;
 
-    void OnCollisionEnter2D(Collision2D coll)
+    private void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Ground" || coll.gameObject.tag == "Platform")
         {
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         this.MoveCamera();
 
@@ -52,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
             if (MOVING_AXIS_X == AXIS_X_LEFT)
             {
                 Flip();
+                rb.velocity = new Vector2(7, rb.velocity.y);
+                //rb.AddForce(new Vector2(moveSpeed, 0f), ForceMode2D.Force);
             }
             MOVING_AXIS_X = AXIS_X_RIGHT;
 
@@ -60,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && IS_ON_GROUND == true)
         {
-
             IS_ON_GROUND = false;
             rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
             if (rb.transform.position == ground)
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Flip()
+    private void Flip()
     {
         GlobalManager.IS_FACING_RIGHT = !GlobalManager.IS_FACING_RIGHT;
         Vector2 theScale = transform.localScale;
@@ -78,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    void MoveCamera()
+    private void MoveCamera()
     {
         var otherPlayer = GameObject.Find("PlayerIce");
 
@@ -86,6 +88,5 @@ public class PlayerMovement : MonoBehaviour
         {
             Camera.main.transform.position = new Vector3(this.transform.position.x, Camera.main.transform.position.y, -10);
         }
-
     }
 }
