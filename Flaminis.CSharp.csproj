@@ -57,12 +57,31 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Pathfinding.JsonFx">
+      <HintPath>Assets\Plugins\AstarPathfindingProject\Plugins\JsonFx\Pathfinding.JsonFx.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\Plugins\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Flaminis.CSharp.Plugins.csproj">
+      <Project>{E4C4E3E0-1538-53AF-1B77-B6AAECA23363}</Project>
+      <Name>Flaminis.CSharp.Plugins</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Enemy.cs" />
+    <Compile Include="Assets\EnemyAi.cs" />
     <Compile Include="Assets\Scripts\BulletPlatformCollision.cs" />
     <Compile Include="Assets\Scripts\DestroyByBoundry.cs" />
     <Compile Include="Assets\Scripts\DestroyTime.cs" />
@@ -71,6 +90,22 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Shoot.cs" />
     <Compile Include="Assets\Scripts\ShootBlue.cs" />
+    <Compile Include="Assets\Scripts\TextUpdate.cs" />
+    <Compile Include="Assets\Scripts\TextUpdatePlayer2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\AstarPathfindingEditor\Editor\EditorAssets\Materials\Navmesh2.shader" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\ExampleScenes\Materials\DiffuseAlwaysVisible.shader" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\ExampleScenes\Materials\Projector Light.shader" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\ExampleScenes\Materials\Projector Multiply.shader" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\ExampleScenes\_Example Scenes.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\Plugins\DotNetZip\DotNetZipLicense.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\Plugins\JsonFx\JsonFxLicense.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\Plugins\JsonFx\Readme.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\Plugins\dependencies.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\Readme.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\Readme_upgrading.txt" />
+    <None Include="Assets\Plugins\AstarPathfindingProject\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -6,7 +6,7 @@ public class ShootBlue : MonoBehaviour {
     public Rigidbody2D bulletPrefab;
     public Transform bulletSpawnPoint;
     public float fireDelay = 0.5f;
-    public float bulletSpeed;
+    public float bulletSpeed = 0.2f;
     float cooldown;
 
     void Update()
