@@ -38,6 +38,14 @@ public class EnemyAi : MonoBehaviour {
     private float roundTimeLeft;
     private float startTime;
 
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Bullet1" || coll.gameObject.tag == "Bullet")
+        {
+            Destroy(this.gameObject,5);
+            Destroy(this);
+        }
+    }
 
     void Start()
     {

@@ -34,7 +34,8 @@ public class Shoot : MonoBehaviour {
             else
             {
                 bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as Rigidbody2D;
-                bulletInstance.velocity = new Vector2((float)bulletSpawnPoint.right.x * bulletSpeed,this.transform.position.y);
+                bulletInstance.AddForce(bulletSpawnPoint.right * bulletSpeed);
+
             }
             cooldown = fireDelay;
         }
