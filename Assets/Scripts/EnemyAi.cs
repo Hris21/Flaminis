@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using Pathfinding;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Seeker))]
 
 public class EnemyAi : MonoBehaviour {
     public Transform target;
+    public Transform firstPlayer;
+    public Transform secondPlayer;
 
     public float updateRate = 2f;
 
@@ -35,8 +38,21 @@ public class EnemyAi : MonoBehaviour {
     private float roundTimeLeft;
     private float startTime;
 
+
     void Start()
     {
+        var distanceFirstPlayer = Vector3.Distance(firstPlayer.transform.position, transform.position);
+        var distanceSecondPlayer = Vector3.Distance(secondPlayer.transform.position, transform.position);
+
+        if (distanceFirstPlayer > distanceSecondPlayer)
+        {
+            target = secondPlayer;
+        }
+        else
+        {
+            target = firstPlayer;
+        }
+
         startTime = Time.time; 
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
@@ -50,10 +66,23 @@ public class EnemyAi : MonoBehaviour {
         seeker.StartPath(transform.position, target.position, OnPathComplete);
 
         StartCoroutine(UpdatePath());
+
     }
 
     IEnumerator UpdatePath()
     {
+        var distanceFirstPlayer = Vector3.Distance(firstPlayer.transform.position, transform.position);
+        var distanceSecondPlayer = Vector3.Distance(secondPlayer.transform.position, transform.position);
+
+        if (distanceFirstPlayer > distanceSecondPlayer)
+        {
+            target = secondPlayer;
+        }
+        else
+        {
+            target = firstPlayer;
+        }
+
         if (target != null) 
         {
             seeker.StartPath(transform.position, target.position, OnPathComplete);
@@ -123,9 +152,15 @@ public class EnemyAi : MonoBehaviour {
                 startTime = Time.time;
                 roundTimeLeft = 0;
                 Rigidbody2D bulletInstance;
+                var heading = transform.position - target.position;
+                var distance = heading.magnitude;
+                var direction = heading / distance;
 
                 bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation) as Rigidbody2D;
-                bulletInstance.AddForce(bulletSpawnPoint.right * bulletSpeed);
+                bulletInstance.AddForce((target.transform.position - transform.position).normalized * bulletSpeed);
+
+
+                //bulletInstance.AddForce(bulletSpawnPoint.right * bulletSpeed);
             }
         }
         float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
