@@ -9,11 +9,21 @@ public class ShootBlue : MonoBehaviour {
     public float bulletSpeed;
     float cooldown;
 
+    public AudioClip shootSound;
+    private AudioSource source;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         cooldown -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.G) &&  cooldown <=0 )
         {
+            source.PlayOneShot(shootSound);
+
             Rigidbody2D bulletInstance;
             if (GlobalManager.IS_FACING_RIGHT_ICE)
             {

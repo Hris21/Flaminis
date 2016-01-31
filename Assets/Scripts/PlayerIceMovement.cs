@@ -22,10 +22,6 @@ public class PlayerIceMovement : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Flip();
-    }
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +32,7 @@ public class PlayerIceMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lockPos, lockPos);
 
         if (Input.GetKey(KeyCode.LeftArrow))
-        {
+        {   
             if (MOVING_AXIS_X == AXIS_X_RIGHT)
             {
                 Flip();
