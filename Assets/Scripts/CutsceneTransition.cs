@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+
 
 public class CutsceneTransition : MonoBehaviour
 {
-
+    public float countdown = 29.50f;
     // Use this for initialization
     void Start()
     {
@@ -13,8 +13,9 @@ public class CutsceneTransition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if ()
+
+        countdown -= Time.deltaTime;
+        if (countdown <= 0)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
         }
