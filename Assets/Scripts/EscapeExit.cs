@@ -10,5 +10,10 @@ public class EscapeExit : MonoBehaviour {
         {
             Application.Quit();
         }
+
+        if (Input.GetKey(KeyCode.Return))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+        }
     }
 }

@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            
             if (MOVING_AXIS_X == AXIS_X_RIGHT)
             {
                 Flip();
@@ -49,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            
             if (MOVING_AXIS_X == AXIS_X_LEFT)
             {
                 Flip();
